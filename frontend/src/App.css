@@ -5,7 +5,9 @@ html {
 }
 
 body {
-  --app-background: linear-gradient(180deg, #1A161F 0%, #0D0C0F 49.17%);
+  --app-background: #fafafa;
+  --app-text-color: #202124;
+  --card-background: #ffffff;
   --app-horizontal-margin: 65px;
   --app-title-font: 'Oswald', serif;
   --app-normal-font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -16,11 +18,11 @@ body {
   --color-red: #ce1616;
   --color-navy: #1A263E;
   --color-navy-light: #2A2332;
-  --shadow-level-1: rgb(0 0 0 / 69%) 0px 26px 30px -10px, rgb(0 0 0 / 73%) 0px 16px 10px -10px;
-  --shadow-level-2: rgb(0 0 0 / 70%) 0px 40px 58px -16px, rgb(0 0 0 / 52%) 0px 30px 22px -10px;
+  --shadow-level-1: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  --shadow-level-2: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 
   background: var(--app-background);
-  color: #ffffff;
+  color: var(--app-text-color);
   font-family: var(--app-normal-font);
   font-weight: 400;
 }
@@ -88,7 +90,7 @@ a:hover {
 }
 
 .App__header {
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
+  background-color: #ffffff;
   position: fixed;
   top: 0;
   left: 0;
@@ -98,7 +100,6 @@ a:hover {
   min-height: var(--app-header-height);
   display: flex;
   flex-direction: column;
-  background-color: transparent;
   transition: background-color .3s ease-in-out;
   display: flex;
   align-items: center;
@@ -106,6 +107,8 @@ a:hover {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  box-shadow: var(--shadow-level-1);
+  color: var(--app-text-color);
 }
 
 .App__nav {
@@ -211,25 +214,24 @@ a:hover {
 }
 
 .Item {
-  display: inline-block;
+  display: inline-flex;
+  flex-direction: column;
   position: relative;
   cursor: pointer;
   z-index: 20;
   overflow: hidden;
-  max-width: 200px;
+  max-width: 300px;
   width: calc(30% - 20px);
   margin: 20px 0px 0px 20px;
-  aspect-ratio: 0.69;
+  background-color: var(--card-background);
+  border-radius: 4px;
   box-shadow: var(--shadow-level-1);
-  transition-duration: 150ms;
-  transition-property: transform, box-shadow;
-  transition-timing-function: ease-out;
+  transition: box-shadow 0.3s cubic-bezier(.25, .8, .25, 1);
 }
 
 .Item:hover {
   z-index: 21;
   box-shadow: var(--shadow-level-2);
-  transform: scale(1.05, 1.05) translateZ(0px) translate3d(0px, 0px, 0px);
 }
 
 .Item:last-child {
@@ -237,15 +239,14 @@ a:hover {
 }
 
 .Item__container {
-  border-radius: 12px;
   background-color: #000000;
   background-position: center;
-  height: 100%;
+  height: 200px;
   width: 100%;
   background-repeat: no-repeat;
   background-size: cover;
   overflow: hidden;
-  margin: 2px;
+  margin: 0;
   position: relative;
   display: flex;
   align-items: center;
@@ -253,36 +254,41 @@ a:hover {
 }
 
 .Item__overlay {
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.75) 20%, transparent 100%);
-  padding: 20px;
+  padding: 16px;
   position: relative;
-  height: 100%;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity .125s ease;
+  height: auto;
+  pointer-events: all;
+  opacity: 1;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   width: 100%;
+  color: var(--app-text-color);
 }
 
 .Item__title {
-  font-size: 22px;
-  font-weight: 400;
-  text-align: center;
+  font-size: 20px;
+  font-weight: 500;
+  text-align: left;
+  margin-bottom: 8px;
 }
 
 .Item__rating {
   font-size: 14px;
+  color: #666;
+  margin-bottom: 16px;
 }
 
 .Item__price {
-  background: rgba(0, 0, 0, 0.6);
-  opacity: 0.8;
-  border-radius: 12px;
-  padding: 14px 18px;
-  font-size: 26px;
+  background: transparent;
+  opacity: 1;
+  border-radius: 0;
+  padding: 0;
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--app-text-color);
+  margin-bottom: 16px;
 }
 
 .Item:hover .Item__overlay {
@@ -291,19 +297,29 @@ a:hover {
 }
 
 .Item__button {
-  background-color: var(--color-red);
-  font-size: 18px;
-  font-weight: bold;
+  background-color: var(--color-green);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  border-radius: 4px;
+  box-shadow: var(--shadow-level-1);
 }
 
 .Item__button--rented {
-  background-color: #000000;
-  font-size: 18px;
-  font-weight: bold;
+  background-color: #e0e0e0;
+  color: #000;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  border-radius: 4px;
+  box-shadow: none;
 }
 
 .Item__button--rented:hover {
-  background-color: #1e1e1e;
+  background-color: #d5d5d5;
 }
 
 @media only screen and (max-width: 1050px) {
@@ -321,7 +337,8 @@ a:hover {
     width: 180px;
   }
 
-  .Item__title, .Item__rating {
+  .Item__title,
+  .Item__rating {
     display: none;
   }
 }
@@ -343,17 +360,19 @@ a:hover {
 }
 
 .Cart__container {
-  border-radius: 12px;
-  background-color: var(--color-navy-light);
+  border-radius: 4px;
+  background-color: var(--card-background);
   height: 100%;
   width: 100%;
   overflow: hidden;
-  margin: 2px;
+  margin: 0;
   position: relative;
-  padding: 14px 20px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
   font-size: 14px;
+  box-shadow: var(--shadow-level-1);
+  color: var(--app-text-color);
 }
 
 .Cart__header {
